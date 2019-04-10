@@ -3,7 +3,7 @@
  * Copyright (c) 2019 Elasticsearch BV; Licensed Apache-2.0 */
 
 ;(function () {
-/* prevent lodash from detecting external amd loaders */var define; 
+/* prevent lodash from detecting external amd loaders */var define;
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -19261,6 +19261,12 @@ function Host(config, globalConfig) {
     config = _.pick(url.parse(config, false, true), urlParseFields); // default logic for the port is to use 9200 for the default. When a string is specified though,
     // we will use the default from the protocol of the string.
 
+    // patch geye zhangwenyang
+    var isIPV6 = config.hostname.indexOf(':') !== -1
+    if (isIPV6) {
+      config.hostname = '[' + config.hostname + ']'
+    }
+
     if (!config.port) {
       var proto = config.protocol || 'http';
 
@@ -22923,7 +22929,7 @@ LoggerAbstract.prototype._formatTraceMessage = function (req) {
   {
     asdflksjdf
   }
-  
+
   <- 502
   {
     sldfksjdlf
